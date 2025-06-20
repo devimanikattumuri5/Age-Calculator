@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Age Calculator</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 320px;
+      color: #fff;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    input[type="date"] {
+      padding: 10px;
+      width: 100%;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 15px;
+      background: rgba(255, 255, 255, 0.7);
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #00bcd4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #019aa8;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Age Calculator</h2>
+    <input type="date" id="dob" />
+    <button id="calcBtn">Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById("calcBtn").addEventListener("click", function () {
+      const dobInput = document.getElementById("dob").value;
+      const result = document.getElementById("result");
+
+      if (!dobInput) {
+        result.innerHTML = "Please select your date of birth.";
+        return;
+      }
+
+      const dob = new Date(dobInput);
+      const today = new Date();
+
+      let years = today.getFullYear() - dob.getFullYear();
+      let months = today.getMonth() - dob.getMonth();
+      let days = today.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      result.innerHTML = `You are <b>${years}</b> years, <b>${months}</b> months, and <b>${days}</b> days old.`;
+    });
+  </script>
+</body>
+</html>
+
